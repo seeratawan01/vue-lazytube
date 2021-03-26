@@ -16,7 +16,7 @@ export default  styled('a', divProps)`
       cursor:pointer;
       
       position: absolute;
-top: 0;
+        top: 0;
 
         button {
 
@@ -55,7 +55,7 @@ top: 0;
   fill:#212121;
   fill-opacity:.8
 }
-.ly-large-play-button-bg:hover, .ly-wrapper:hover .ly-large-play-button-bg {
+.ly-large-play-button-bg:hover, &:hover .ly-large-play-button-bg {
   -webkit-transition:fill .1s cubic-bezier(0,0,0.2,1),fill-opacity .1s cubic-bezier(0,0,0.2,1);
   transition:fill .1s cubic-bezier(0,0,0.2,1),fill-opacity .1s cubic-bezier(0,0,0.2,1);
   fill:#f00;
