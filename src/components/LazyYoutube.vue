@@ -101,7 +101,7 @@ export default {
     },
     thumbnailQuality: {
       type: String,
-      default: 'high'
+      default: 'standard'
     },
 
   },
