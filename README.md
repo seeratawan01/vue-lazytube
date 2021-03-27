@@ -63,8 +63,6 @@ Directly in browser
 
 ### Usage
 
-When you need a `contenteditable` element:
-
 ```javascript
 <template>
     <LazyYoutube src="https://www.youtube.com/watch?v=TcMBFSGVi1c" />
@@ -94,6 +92,7 @@ These methods let you control the player using JavaScript, so you can perform th
 | stopVideo | `function` | `this.$refs["lazyVideo"]['stopVideo']()` |
 | pauseVideo | `function` | `this.$refs["lazyVideo"]['pauseVideo']()` |
 | resetView | `function` | `this.$refs["lazyVideo"]['resetView']()` |
+
 _Note: Must Replace `lazyVideo` with your [ref](https://v3.vuejs.org/guide/component-template-refs.html)._
 #### Example
 ```javascript
