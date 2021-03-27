@@ -10,6 +10,10 @@ export default  styled('div', divProps)`
  
   background-color: #000000;
   position: relative;
+  
+  & * {
+    padding:0;margin:0;overflow:hidden; box-sizing: border-box;
+  }
 
   &:before {
     display: block;
