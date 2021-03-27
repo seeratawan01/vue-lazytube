@@ -96,6 +96,37 @@ export default {
 
             }
 
+        },
+        getYoutubeThumbnail(video_id, quality){
+            let thumbnail;
+
+            if(video_id){
+                if(typeof quality == "undefined"){
+                    quality = 'high';
+                }
+
+                let quality_key = 'maxresdefault'; // Max quality
+                if(quality === 'default'){
+                    quality_key = 'default';
+                }
+                else if(quality === 'medium'){
+                    quality_key = 'mqdefault';
+                }
+                else if(quality === 'high'){
+                    quality_key = 'hqdefault';
+                }
+                else if (quality === 'standard') {
+                    quality_key = 'sddefault';
+                }
+                else if (quality === 'maxres') {
+                    quality_key = 'maxresdefault';
+                }
+
+                thumbnail = "http://img.youtube.com/vi/"+video_id+"/"+quality_key+".jpg";
+                return thumbnail;
+            }
+
+            return false;
         }
     }
 };

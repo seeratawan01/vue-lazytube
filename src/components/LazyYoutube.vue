@@ -2,11 +2,12 @@
     <VideoWrapper :aspectRatioValue="aspectRatioValue" :maxWidth="maxWidth">
       <Preview
           v-if="!onceLoaded"
-          :videoID="videoID"
-          :isVideoFound="isVideoFound "
           @click="createIframe(isVideoFound)">
 
         <template v-if="isVideoFound ">
+          <img
+              :src="getYoutubeThumbnail(videoID, this.thumbnailQuality)" alt=""
+          >
           <span class="ly-text" v-if="getTitle.length">{{getTitle}}</span>
           <button v-show="!clicked">
             <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
@@ -66,24 +67,6 @@ export default {
     VideoWrapper,
     Preview
   },
-  directives: {
-    'click-away': {
-      bind: function (el, binding, vnode) {
-        el.clickOutsideEvent = function (event) {
-          // here I check that click was outside the el and his children
-          if (!(el == event.target || el.contains(event.target))) {
-            // and if it did, call method provided in attribute value
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
-      },
-      unbind: function (el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-      },
-
-    }
-  },
   data () {
     return {
       iframeEl: null,
@@ -112,10 +95,15 @@ export default {
       type: String,
       default: '560px'
     },
-    pauseOnClickAway: {
+    autoplay: {
       type: Boolean,
       default: false
-    }
+    },
+    thumbnailQuality: {
+      type: String,
+      default: 'high'
+    },
+
   },
   computed: {
     videoID: function () {
@@ -136,6 +124,8 @@ export default {
             // handle success
             self.videoInfo = response.data;
             self.isVideoFound = true
+
+
           })
           .catch(function () {
             // handle error
@@ -145,17 +135,17 @@ export default {
           .then(function () {
             // always executed
             self.fetchingInfo = false
+
+            if(self.autoplay) {
+              self.playVideo()
+            }
           });
     })
 
 
     },
   methods: {
-    onClickAway() {
-      if(this.pauseOnClickAway) {
-        this.pauseVideo()
-      }
-    }
+
   }
 }
 </script>

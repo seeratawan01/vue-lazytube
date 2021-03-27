@@ -1,19 +1,19 @@
 import styled from 'vue-styled-components';
 
-const divProps = { videoID: String | Number, isVideoFound: Boolean };
-
-export default  styled('a', divProps)`
+export default  styled('a')`
   text-decoration: none;
   padding: 21px;
   color: #ffffff;
   
-  ${props => {
-      if(props.isVideoFound && props.videoID) {
-          return `background: url(https://i.ytimg.com/vi_webp/${props.videoID}/maxresdefault.webp) center center no-repeat`;
-
-      }
-
-  }}
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
   
   background-size: cover;
 
