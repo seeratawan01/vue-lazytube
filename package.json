@@ -1,16 +1,28 @@
 {
-  "name": "lazy-i",
+  "name": "vue-lazytube",
   "version": "0.1.0",
-  "private": true,
+  "keywords": [
+    "Vue",
+    "lazy",
+    "youtube",
+    "iframe",
+    "load"
+  ],
+  "homepage": "https://github.com/seeratawan01/vue-lazytube",
+  "bugs": "https://github.com/seeratawan01/vue-lazytube/issues",
   "files": [
     "dist/*"
   ],
+  "author": {
+    "name": "Seerat Awan",
+    "email": "seeratsdsking@gmail.com",
+    "url": "https://github.com/seeratawan01/"
+  },
   "main": "./dist/vue-lazytube.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build-lib": "vue-cli-service build --target lib --name vue-lazytube src/index.js",
-    "build-tgz": "vue-cli-service build --target lib src/index.js && npm pack && shx mv ./vue-component-0.1.0.tgz ..",
-
+    "build-tgz": "vue-cli-service build --target lib --name vue-lazytube src/index.js && npm pack && shx mv ./vue-lazytube.tgz ..",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

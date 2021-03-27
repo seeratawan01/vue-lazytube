@@ -5181,6 +5181,15 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
+lazy-i@./lazy-i-0.1.0.tgz:
+  version "0.1.0"
+  resolved "./lazy-i-0.1.0.tgz#d2eeded4641bb5e011ee3e88b517f5c46f7f2eb3"
+  dependencies:
+    axios "^0.21.1"
+    core-js "^3.6.5"
+    vue "^2.6.11"
+    vue-styled-components "^1.6.0"
+
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.3.0.tgz#3b09924edf9f083c0490fdd4c0bc4421e04764ee"
@@ -8308,6 +8317,16 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
+
+vue-lazytube@./vue-lazytube-0.1.0.tgz:
+  version "0.1.0"
+  resolved "./vue-lazytube-0.1.0.tgz#ff00ae9ba8a0f78206f9ff40a53b582cfad43efa"
+  dependencies:
+    axios "^0.21.1"
+    core-js "^3.6.5"
+    lazy-i "./lazy-i-0.1.0.tgz"
+    vue "^2.6.11"
+    vue-styled-components "^1.6.0"
 
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.1.2"
