@@ -1204,6 +1204,26 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 
 /***/ }),
 
+/***/ "498a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $trim = __webpack_require__("58a8").trim;
+var forcedStringTrimMethod = __webpack_require__("c8d2");
+
+// `String.prototype.trim` method
+// https://tc39.es/ecma262/#sec-string.prototype.trim
+$({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
+  trim: function trim() {
+    return $trim(this);
+  }
+});
+
+
+/***/ }),
+
 /***/ "4a7b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1458,12 +1478,15 @@ module.exports = function dispatchRequest(config) {
 
 "use strict";
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"54883163-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LazyYoutube.vue?vue&type=template&id=603a2228&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('VideoWrapper',{attrs:{"aspectRatioValue":_vm.aspectRatioValue,"maxWidth":_vm.maxWidth}},[(!_vm.onceLoaded)?_c('Preview',{on:{"click":function($event){return _vm.createIframe(_vm.isVideoFound)}}},[(_vm.isVideoFound )?[_c('img',{attrs:{"src":_vm.getYoutubeThumbnail(_vm.videoID, this.thumbnailQuality),"alt":""}}),(_vm.getTitle.length)?_c('span',{staticClass:"ly-text"},[_vm._v(_vm._s(_vm.getTitle))]):_vm._e(),_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.clicked),expression:"!clicked"}]},[_c('svg',{attrs:{"height":"100%","version":"1.1","viewBox":"0 0 68 48","width":"100%"}},[_c('path',{staticClass:"ly-large-play-button-bg",attrs:{"d":"M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z","fill":"#f00"}}),_c('path',{attrs:{"d":"M 45,24 27,14 27,34","fill":"#fff"}})])]),_c('span',{directives:[{name:"show",rawName:"v-show",value:(_vm.clicked),expression:"clicked"}],staticClass:"ly-ring"},[_c('span'),_c('span'),_c('span')])]:(!_vm.fetchingInfo)?[_c('div',{staticClass:"ly-error-container"},[_c('span',{staticClass:"ly-error-icon"},[_c('svg',{attrs:{"fill":"#fff","viewBox":"0 0 48 48"}},[_c('path',{attrs:{"d":"M0 0h48v48H0V0z","fill":"none"}}),_c('path',{attrs:{"d":"M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z","fill-opacity":"0.7"}})])]),_c('span',{staticClass:"ly-error-content"},[_c('span',{staticClass:"ly-error-content__reason"},[_c('span',[_vm._v("Video unavailable")])]),_c('span',{staticClass:"ly-error-content__subreason"},[_c('span',[_vm._v("This video is unavailable.")])])])])]:_vm._e()],2):_vm._e(),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.onceLoaded),expression:"onceLoaded"}],staticClass:"ly-iframe"})],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"54883163-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LazyYoutube.vue?vue&type=template&id=70bac3bb&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('VideoWrapper',{attrs:{"aspectRatioValue":_vm.aspectRatioValue,"maxWidth":_vm.maxWidth}},[(!_vm.onceLoaded)?_c('Preview',{on:{"click":function($event){return _vm.createIframe(_vm.isVideoFound)}}},[(_vm.isVideoFound )?[(_vm.isCustomThumbnailExist)?_c('img',{attrs:{"src":_vm.customThumbnail,"alt":""},on:{"error":function($event){$event.target.src=_vm.getYoutubeThumbnail(_vm.videoID, _vm.thumbnailQuality)}}}):_c('img',{attrs:{"src":_vm.getYoutubeThumbnail(_vm.videoID, _vm.thumbnailQuality),"alt":""}}),(_vm.getTitle.length)?_c('span',{staticClass:"ly-text"},[_vm._v(_vm._s(_vm.isCustomTitleExist ? _vm.customTitle : _vm.getTitle))]):_vm._e(),_c('button',{directives:[{name:"show",rawName:"v-show",value:(!_vm.clicked),expression:"!clicked"}]},[_c('svg',{attrs:{"height":"100%","version":"1.1","viewBox":"0 0 68 48","width":"100%"}},[_c('path',{staticClass:"ly-large-play-button-bg",attrs:{"d":"M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z","fill":"#f00"}}),_c('path',{attrs:{"d":"M 45,24 27,14 27,34","fill":"#fff"}})])]),_c('span',{directives:[{name:"show",rawName:"v-show",value:(_vm.clicked),expression:"clicked"}],staticClass:"ly-ring"},[_c('span'),_c('span'),_c('span')])]:(!_vm.fetchingInfo)?[_c('div',{staticClass:"ly-error-container"},[_c('span',{staticClass:"ly-error-icon"},[_c('svg',{attrs:{"fill":"#fff","viewBox":"0 0 48 48"}},[_c('path',{attrs:{"d":"M0 0h48v48H0V0z","fill":"none"}}),_c('path',{attrs:{"d":"M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z","fill-opacity":"0.7"}})])]),_c('span',{staticClass:"ly-error-content"},[_c('span',{staticClass:"ly-error-content__reason"},[_c('span',[_vm._v("Video unavailable")])]),_c('span',{staticClass:"ly-error-content__subreason"},[_c('span',[_vm._v("This video is unavailable.")])])])])]:_vm._e()],2):_vm._e(),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.onceLoaded),expression:"onceLoaded"}],staticClass:"ly-iframe-wrapper"})],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LazyYoutube.vue?vue&type=template&id=603a2228&
+// CONCATENATED MODULE: ./src/components/LazyYoutube.vue?vue&type=template&id=70bac3bb&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
+var es_string_trim = __webpack_require__("498a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
 var es_string_split = __webpack_require__("1276");
@@ -1474,11 +1497,19 @@ var es_regexp_exec = __webpack_require__("ac1f");
 // CONCATENATED MODULE: ./src/mixins/youtubeMixin.js
 
 
+
+// Importing Utils
+var axios = __webpack_require__("bc3a").default;
+
 /* harmony default export */ var youtubeMixin = ({
   data: function data() {
     return {
       clicked: false,
-      onceLoaded: false
+      onceLoaded: false,
+      iframeEl: null,
+      videoInfo: null,
+      fetchingInfo: true,
+      isVideoFound: false
     };
   },
   methods: {
@@ -1545,6 +1576,29 @@ var es_regexp_exec = __webpack_require__("ac1f");
         this.onceLoaded = false;
       }
     },
+    resetState: function resetState() {
+      this.resetView();
+      this.clicked = false, this.onceLoaded = false, this.iframeEl = null, this.videoInfo = null, this.fetchingInfo = true, this.isVideoFound = false;
+    },
+    fetchingOembed: function fetchingOembed() {
+      var self = this;
+      axios.get("https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=".concat(this.videoID, "&format=json")).then(function (response) {
+        // handle success
+        self.videoInfo = response.data;
+        self.isVideoFound = true;
+      }).catch(function () {
+        // handle error
+        self.videoInfo = null;
+        self.isVideoFound = false;
+      }).then(function () {
+        // always executed
+        self.fetchingInfo = false;
+
+        if (self.autoplay) {
+          self.playVideo();
+        }
+      });
+    },
     createIframe: function createIframe(flag) {
       if (this.iframeEl === null && flag) {
         this.clicked = true;
@@ -1554,6 +1608,7 @@ var es_regexp_exec = __webpack_require__("ac1f");
         this.iframeEl.setAttribute('allow', "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
         this.iframeEl.setAttribute('allowfullscreen', "1");
         this.iframeEl.setAttribute('title', "".concat(this.getTitle));
+        this.iframeEl.setAttribute('class', "".concat(this.iframeClass));
         this.iframeEl.addEventListener('load', this.handleLoad);
         this.$el.lastChild.appendChild(this.iframeEl);
         this.iframeEl.focus();
@@ -4775,7 +4830,7 @@ var divProps = {
   aspectRatioValue: String | Number,
   maxWidth: String
 };
-/* harmony default export */ var Wrapper = (vue_styled_components_es('div', divProps)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\n  --aspect-ratio:  ", "\n  max-width:  ", "\n\n \n  background-color: #000000;\n  position: relative;\n  \n  & * {\n    padding:0;margin:0;overflow:hidden; box-sizing: border-box;\n  }\n\n  &:before {\n    display: block;\n    padding-top: 56.25%; /* 16:9 */\n\n    /* falls back to 16/9, but otherwise uses ratio from HTML */\n    padding-top: calc(var(--aspect-ratio) * 1%);\n    content: \"\";\n  }\n\n  iframe {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  width: 100%;\n  height: 100%;\n}\n"])), function (props) {
+/* harmony default export */ var Wrapper = (vue_styled_components_es('div', divProps)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\n  --aspect-ratio:  ", "\n  max-width:  ", "\n  width: 100%;\n \n  background-color: #000000;\n  position: relative;\n  \n  & * {\n    padding:0;margin:0;overflow:hidden; box-sizing: border-box;\n  }\n\n  &:before {\n    display: block;\n    padding-top: 56.25%; /* 16:9 */\n\n    /* falls back to 16/9, but otherwise uses ratio from HTML */\n    padding-top: calc(var(--aspect-ratio) * 1%);\n    content: \"\";\n  }\n\n  iframe {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  width: 100%;\n  height: 100%;\n}\n"])), function (props) {
   return props.aspectRatioValue ? props.aspectRatioValue : 56;
 }, function (props) {
   return props.maxWidth ? props.maxWidth : '560px';
@@ -4788,60 +4843,62 @@ var Preview_templateObject;
 
 /* harmony default export */ var Preview = (vue_styled_components_es('a')(Preview_templateObject || (Preview_templateObject = _taggedTemplateLiteral(["\n  text-decoration: none;\n  padding: 21px;\n  color: #ffffff;\n  \n  img {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    top: 0;\n    left: 0;\n    pointer-events: none;\n  }\n  \n  background-size: cover;\n\n  display: block;\n  height: 100%;\n  width: 100%;\n\n  cursor: pointer;\n  position: absolute;\n  top: 0;\n\n  &:before {\n    content: \"\";\n    height: 60px;\n    padding-bottom: 50px;\n    top: 0;\n    left: 0;\n    z-index: 25;\n    background-position: top;\n    width: 100%;\n    position: absolute;\n    background-repeat: repeat-x;\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADGCAYAAAAT+OqFAAAAdklEQVQoz42QQQ7AIAgEF/T/D+kbq/RWAlnQyyazA4aoAB4FsBSA/bFjuF1EOL7VbrIrBuusmrt4ZZORfb6ehbWdnRHEIiITaEUKa5EJqUakRSaEYBJSCY2dEstQY7AuxahwXFrvZmWl2rh4JZ07z9dLtesfNj5q0FU3A5ObbwAAAABJRU5ErkJggg==);\n    -moz-transition: opacity .25s cubic-bezier(0.0, 0.0, 0.2, 1);\n    -webkit-transition: opacity .25s cubic-bezier(0.0, 0.0, 0.2, 1);\n    transition: opacity .25s cubic-bezier(0.0, 0.0, 0.2, 1);\n    pointer-events: none;\n  }\n  .ly-error-container {\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n\n    height: 100%;\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    background: #282828;\n  }\n  .ly-error-icon {\n    height: 64px;\n    width: 64px;\n    min-width: 64px;\n    min-height: 64px;\n    margin-right: 12px;\n    margin-top: -4px;\n  }\n  .ly-error-content {\n    display: flex;\n    flex-direction: column;\n    \n    text-shadow: 0 0 2px rgba(0, 0, 0, .5);\n    font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, sans-serif;\n    \n    &__reason{\n      font-size: 22px;\n      padding-bottom: 10px;\n    }  \n    &__subreason{\n      font-size: 18px;\n    }\n  }\n\n  button {\n    border: none;\n    background-color: transparent;\n    padding: 0;\n    color: inherit;\n    text-align: inherit;\n    font-size: 100%;\n    font-family: inherit;\n    cursor: pointer;\n    line-height: inherit;\n\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    width: 68px;\n    height: 48px;\n    transform: translate(-50%, -50%);\n    -webkit-transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);\n    transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);\n    z-index: 63;\n  }\n\n  .ly-text {\n    position: relative;\n    z-index: 26;\n    text-shadow: 0 0 2px rgba(0, 0, 0, .5);\n    font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, sans-serif;\n    width: 82%;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    display: block;\n    font-size: 18px;\n  }\n\n  .ly-large-play-button-bg {\n    -webkit-transition: fill .1s cubic-bezier(0.4, 0, 1, 1), fill-opacity .1s cubic-bezier(0.4, 0, 1, 1);\n    transition: fill .1s cubic-bezier(0.4, 0, 1, 1), fill-opacity .1s cubic-bezier(0.4, 0, 1, 1);\n    fill: #212121;\n    fill-opacity: .8\n  }\n\n  .ly-large-play-button-bg:hover, &:hover .ly-large-play-button-bg {\n    -webkit-transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);\n    transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);\n    fill: #f00;\n    fill-opacity: 1\n  }\n\n\n  .ly-ring {\n    display: inline-block;\n    width: 80px;\n    height: 80px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n\n    background-image: radial-gradient(#ffffff05 10%,#2a2d2a4f,#ffffff05 80%);\n\n    span {\n      box-sizing: border-box;\n      display: block;\n      position: absolute;\n      width: 67px;\n      height: 67px;\n      margin: 6px;\n      border: 7px solid #F8F8F8;\n      border-radius: 50%;\n      animation: ly-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n      border-color: #F8F8F8 transparent transparent transparent;\n\n      &:nth-child(1) {\n        animation-delay: -0.45s;\n      }\n\n      &:nth-child(2) {\n        animation-delay: -0.3s;\n      }\n\n      &:nth-child(3) {\n        animation-delay: -0.15s;\n      }\n\n    }\n  }\n\n  @keyframes ly-ring {\n    0% {\n      transform: rotate(0deg);\n    }\n    100% {\n      transform: rotate(360deg);\n    }\n  }\n\n"]))));
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LazyYoutube.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// Importing Utils
-var axios = __webpack_require__("bc3a").default; // Importing Mixins
 
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Importing Mixins
  // Importing Components
 
 
@@ -4852,14 +4909,6 @@ var axios = __webpack_require__("bc3a").default; // Importing Mixins
   components: {
     VideoWrapper: Wrapper,
     Preview: Preview
-  },
-  data: function data() {
-    return {
-      iframeEl: null,
-      videoInfo: null,
-      fetchingInfo: true,
-      isVideoFound: false
-    };
   },
   props: {
     src: {
@@ -4888,6 +4937,18 @@ var axios = __webpack_require__("bc3a").default; // Importing Mixins
     thumbnailQuality: {
       type: String,
       default: 'standard'
+    },
+    iframeClass: {
+      type: String,
+      default: 'ly-iframe'
+    },
+    customTitle: {
+      type: String,
+      default: ''
+    },
+    customThumbnail: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -4899,30 +4960,28 @@ var axios = __webpack_require__("bc3a").default; // Importing Mixins
     },
     getTitle: function getTitle() {
       return this.videoInfo !== null ? this.videoInfo.title : '';
+    },
+    isCustomTitleExist: function isCustomTitleExist() {
+      return this.customTitle.trim().length > 0;
+    },
+    isCustomThumbnailExist: function isCustomThumbnailExist() {
+      return this.customThumbnail.trim().length > 0;
     }
   },
   mounted: function mounted() {
-    var self = this;
     this.$nextTick(function () {
-      axios.get("https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=".concat(this.videoID, "&format=json")).then(function (response) {
-        // handle success
-        self.videoInfo = response.data;
-        self.isVideoFound = true;
-      }).catch(function () {
-        // handle error
-        self.videoInfo = null;
-        self.isVideoFound = false;
-      }).then(function () {
-        // always executed
-        self.fetchingInfo = false;
-
-        if (self.autoplay) {
-          self.playVideo();
-        }
-      });
+      this.fetchingOembed();
     });
   },
-  methods: {}
+  methods: {},
+  watch: {
+    'src': function src(val, oldVal) {
+      if (val !== oldVal) {
+        this.resetState();
+        this.fetchingOembed();
+      }
+    }
+  }
 });
 // CONCATENATED MODULE: ./src/components/LazyYoutube.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_LazyYoutubevue_type_script_lang_js_ = (LazyYoutubevue_type_script_lang_js_); 
@@ -7032,6 +7091,25 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+
+/***/ "c8d2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__("d039");
+var whitespaces = __webpack_require__("5899");
+
+var non = '\u200B\u0085\u180E';
+
+// check that a method works with the correct list
+// of whitespaces and has a correct name
+module.exports = function (METHOD_NAME) {
+  return fails(function () {
+    return !!whitespaces[METHOD_NAME]() || non[METHOD_NAME]() != non || whitespaces[METHOD_NAME].name !== METHOD_NAME;
+  });
+};
 
 
 /***/ }),
