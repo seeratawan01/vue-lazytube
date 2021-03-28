@@ -1,12 +1,16 @@
 {
   "name": "vue-lazytube",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "private": false,
   "keywords": [
-    "Vue",
-    "lazy",
     "youtube",
+    "youtube-video",
+    "vue-youtube",
+    "lazyload",
+    "video-lazyload",
+    "vue",
     "iframe",
-    "load"
+    "lazytube"
   ],
   "homepage": "https://github.com/seeratawan01/vue-lazytube",
   "bugs": "https://github.com/seeratawan01/vue-lazytube/issues",
@@ -21,11 +25,11 @@
   "main": "./dist/vue-lazytube.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build-lib": "vue-cli-service build --target lib --name vue-lazytube src/index.js",
+    "build": "vue-cli-service build --target lib --name vue-lazytube src/index.js",
     "build-tgz": "vue-cli-service build --target lib --name vue-lazytube src/index.js && npm pack && shx mv ./vue-lazytube.tgz ..",
-    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
@@ -42,6 +46,10 @@
     "shx": "^0.3.3",
     "vue-template-compiler": "^2.6.11"
   },
+  "peerDependencies": {
+    "vue": "^2.6.11"
+  },
+  "funding": "https://www.patreon.com/seeratawan",
   "eslintConfig": {
     "root": true,
     "env": {

@@ -1,8 +1,15 @@
+// Importing Utils
+const axios = require('axios').default;
+
 export default {
     data () {
         return {
             clicked: false,
-            onceLoaded: false
+            onceLoaded: false,
+            iframeEl: null,
+            videoInfo: null,
+            fetchingInfo: true,
+            isVideoFound: false
         }
     },
     methods: {
@@ -67,6 +74,38 @@ export default {
                this.onceLoaded = false
             }
         },
+        resetState() {
+            this.resetView()
+            this.clicked= false,
+            this.onceLoaded= false,
+            this.iframeEl= null,
+            this.videoInfo= null,
+            this.fetchingInfo= true,
+            this.isVideoFound= false
+        },
+        fetchingOembed() {
+            let self = this;
+            axios.get(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json`)
+                .then(function (response) {
+                    // handle success
+                    self.videoInfo = response.data;
+                    self.isVideoFound = true
+
+                })
+                .catch(function () {
+                    // handle error
+                    self.videoInfo = null
+                    self.isVideoFound = false
+                })
+                .then(function () {
+                    // always executed
+                    self.fetchingInfo = false
+
+                    if(self.autoplay) {
+                        self.playVideo()
+                    }
+                });
+        },
         createIframe(flag) {
             if(this.iframeEl === null && flag) {
                 this.clicked = true;
@@ -76,6 +115,7 @@ export default {
                 this.iframeEl.setAttribute('allow', `accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture`);
                 this.iframeEl.setAttribute('allowfullscreen', `1`);
                 this.iframeEl.setAttribute('title', `${this.getTitle}`);
+                this.iframeEl.setAttribute('class', `${this.iframeClass}`);
 
                 this.iframeEl.addEventListener('load', this.handleLoad)
 

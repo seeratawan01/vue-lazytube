@@ -1,5 +1,8 @@
 # Vue Lazytube
 Embed a YouTube player easily and lazy load the video to save resources and reduces initial load size.
+Useful when performance and page size is important or for sites with many embedded youtube videos.
+
+For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7x and memory usage by 2-3x.
 
 #### Buy Me a Coffee
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dseeratawan%26type%3Dpledges&style=for-the-badge)](https://patreon.com/seeratawan)
@@ -8,6 +11,7 @@ Embed a YouTube player easily and lazy load the video to save resources and redu
 - reduces initial load size by ~1.1 MB per video
 - fully responsive and customizable through `props`
 - provides methods to control (`play`, `stop`, `pause` and `reset`) embedded videos
+- provide options to set up custom title and preview of embedded videos
 
 ## Demo
 
@@ -74,12 +78,15 @@ Directly in browser
 #### Props
 | Name | Type | Default Value | Description | Required |
 | ------ | ------ | ------ | ------ | ------ |
-| `src` | `String` | `null` | To load video and iframe, should be youtube video link. | `true` |
+| `src` | `String` | `` | To load video and iframe, should be youtube video link. | `true` |
 | `aspectRatio` | `String` | `16:9` | Maintaining the aspect ratio of video, perfect for responsively handling video embeds based on the width of the parent, should be in `*:*` format. e.g, `1:1`, `4:3`, `16:9` and `21:9`. | `false` |
 | `maxWidth` | `String` | `560px` | Defines maximum width of video container.  | `false` |
 | `showTitle` | `Boolean` | `true` | Defines whether to show video title on top. | `false` |
-| `autoplay` | `Boolean` | `false` | Defines whether to loads the iframe as page loads _(not recommended)_ | `false` |
+| `autoplay` | `Boolean` | `false` | Defines whether to load the iframe as the page loads _(not recommended)_ | `false` |
 | `thumbnailQuality` | `String` | `standard` | Defines the quality of thumbnail, should be one of the following `default`, `medium`, `high`, `standard` or `maxres` | `false` |
+| `iframeClass` | `String` | `ly-iframe` | Defines the class on iframe element | `false` |
+| `customTitle` | `String` | `` | Defines the custom title of the video | `false` |
+| `customThumbnail` | `String` | `` | Defines the custom thumbnail image link of the video | `false` |
 
 #### Methods
 These methods let you control the player using JavaScript, so you can perform the operations like `play`, `stop`, `pause` and `reset`.
@@ -119,3 +126,8 @@ _Note: Must Replace `lazyVideo` with your [ref](https://v3.vuejs.org/guide/compo
       },
     };
 </script>
+```
+
+### Open Source License
+
+You may use it under the terms of the [MIT Licenses](https://opensource.org/licenses/MIT)
