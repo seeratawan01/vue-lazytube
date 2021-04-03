@@ -1,6 +1,6 @@
 # Vue Lazytube
-Embed a YouTube player easily and lazy load the video to save resources and reduces initial load size.
-Useful when performance and page size is important or for sites with many embedded youtube videos.
+Embed a YouTube or Vimeo player easily and lazy load the video to save resources and reduces initial load size.
+Useful when performance and page size is important or for sites with many embedded videos.
 
 For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7x and memory usage by 2-3x.
 
@@ -12,6 +12,7 @@ For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7
 - fully responsive and customizable through `props`
 - provides methods to control (`play`, `stop`, `pause` and `reset`) embedded videos
 - provide options to set up custom title and preview of embedded videos
+- platform supported: Youtube and Vimeo
 
 ## Demo
 
@@ -32,44 +33,34 @@ $ yarn add vue-lazytube
 In your `main.js`:
 
 ```javascript
-import LazyYoutube from "vue-lazytube";
+import LazyTube from "vue-lazytube";
 
-Vue.component("LazyYoutube", LazyYoutube);
+Vue.use(LazyTube);
 ```
-
-**OR**
 
 To include only in specific components
 ```javascript
-import LazyYoutube from 'vue-lazytube'
+import { LazyYoutube, LazyVimeo } from "vue-lazytube";
 
 export default {
     name: 'YourComponent',
     components: {
         LazyYoutube,
+        LazyVimeo
     },
 }
 ```
-**OR**
 
-Directly in browser
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
-<script src="./vue-lazytube.umd.min.js"></script>
-
-<script>
-    // as a component
-    Vue.use('LazyYoutube', LazyYoutube)
-</script>
-```
 
 ### Usage
 
 ```javascript
 <template>
+    <!-- Youtube Embed -->
     <LazyYoutube src="https://www.youtube.com/watch?v=TcMBFSGVi1c" />
+
+    <!-- Vimeo Embed -->
+    <LazyVimeo src="https://player.vimeo.com/video/64654583" />
 </template>
 ```
 
@@ -78,7 +69,7 @@ Directly in browser
 #### Props
 | Name | Type | Default Value | Description | Required |
 | ------ | ------ | ------ | ------ | ------ |
-| `src` | `String` | `` | To load video and iframe, should be youtube video link. | `true` |
+| `src` | `String` | `` | To load video and iframe, should be Youtube/Vimeo video link. | `true` |
 | `aspectRatio` | `String` | `16:9` | Maintaining the aspect ratio of video, perfect for responsively handling video embeds based on the width of the parent, should be in `*:*` format. e.g, `1:1`, `4:3`, `16:9` and `21:9`. | `false` |
 | `maxWidth` | `String` | `560px` | Defines maximum width of video container.  | `false` |
 | `showTitle` | `Boolean` | `true` | Defines whether to show video title on top. | `false` |

@@ -2,7 +2,7 @@ import styled from 'vue-styled-components';
 
 export default  styled('a')`
   text-decoration: none;
-  padding: 21px;
+  padding: 21px !important;
   color: #ffffff;
   
   img {
@@ -55,6 +55,8 @@ export default  styled('a')`
     align-items: center;
 
     background: #282828;
+
+    padding: 0 4rem;
   }
   .ly-error-icon {
     height: 64px;
@@ -100,6 +102,7 @@ export default  styled('a')`
     -webkit-transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);
     transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);
     z-index: 63;
+    
   }
 
   .ly-text {
@@ -115,17 +118,24 @@ export default  styled('a')`
     font-size: 18px;
   }
 
-  .ly-large-play-button-bg {
+  .ly-large-play-button-bg, .ly-large-play-button-bg--v {
     -webkit-transition: fill .1s cubic-bezier(0.4, 0, 1, 1), fill-opacity .1s cubic-bezier(0.4, 0, 1, 1);
     transition: fill .1s cubic-bezier(0.4, 0, 1, 1), fill-opacity .1s cubic-bezier(0.4, 0, 1, 1);
-    fill: #212121;
-    fill-opacity: .8
+    fill: #1b1b1b;
+    fill-opacity: .9
   }
 
   .ly-large-play-button-bg:hover, &:hover .ly-large-play-button-bg {
     -webkit-transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);
     transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);
     fill: #f00;
+    fill-opacity: 1
+  }
+
+  .ly-large-play-button-bg--v:hover, &:hover .ly-large-play-button-bg--v {
+    -webkit-transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);
+    transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);
+    fill: #00adef;
     fill-opacity: 1
   }
 
