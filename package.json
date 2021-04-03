@@ -1,6 +1,6 @@
 {
   "name": "vue-lazytube",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "keywords": [
     "youtube",
@@ -38,7 +38,6 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue-lazytube": "./vue-lazytube-1.0.0.tgz",
     "vue-styled-components": "^1.6.0"
   },
   "devDependencies": {
