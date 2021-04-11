@@ -4,8 +4,25 @@ Useful when performance and page size is important or for sites with many embedd
 
 For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7x and memory usage by 2-3x.
 
-#### Buy Me a Coffee
-[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dseeratawan%26type%3Dpledges&style=for-the-badge)](https://patreon.com/seeratawan)
+
+[Demo online](https://codesandbox.io/s/vue-lazytube-forked-17o8v?file=/src/App.vue) | [Tutorial](https://medium.com/geekculture/light-and-responsive-youtube-embeds-faster-vue-web-page-load-speeds-c8e477b93f0f) | [Sponsor](https://patreon.com/seeratawan)
+
+---
+#### Table of Content
+- [Features](#features)
+- [Demo](#demo)
+- [Installation](#installation)
+    * [Install Globally](#to-make-the-plugin-available-globally)
+    * [Install Locally](#to-include-only-in-specific-components)
+- [Usage](#usage)
+- [API](#api)
+    * [Props](#props)
+    * [Slots](#slots)
+    * [Methods](#methods)
+    * [Example](#example)
+- [License](#open-source-license)
+- [Buy Me a Coffee](#buy-me-a-coffee)
+
 
 ## Features
 - reduces initial load size by ~1.1 MB per video
@@ -18,7 +35,7 @@ For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7
 
 [![view vue-lazytube](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vue-lazytube-forked-17o8v?file=/src/App.vue)
 
-### Installation
+## Installation
 
 With a build systems
 
@@ -38,7 +55,7 @@ import LazyTube from "vue-lazytube";
 Vue.use(LazyTube);
 ```
 
-To include only in specific components
+### To include only in specific components
 ```javascript
 import { LazyYoutube, LazyVimeo } from "vue-lazytube";
 
@@ -52,7 +69,7 @@ export default {
 ```
 
 
-### Usage
+## Usage
 
 ```javascript
 <template>
@@ -64,9 +81,9 @@ export default {
 </template>
 ```
 
-### API
+## API
 
-#### Props
+### Props
 | Name | Type | Default Value | Description | Required |
 | ------ | ------ | ------ | ------ | ------ |
 | `src` | `String` | `` | To load video and iframe, should be Youtube/Vimeo video link. | `true` |
@@ -79,7 +96,18 @@ export default {
 | `customTitle` | `String` | `` | Defines the custom title of the video | `false` |
 | `customThumbnail` | `String` | `` | Defines the custom thumbnail image link of the video | `false` |
 
-#### Methods
+
+### Slots
+This Component provides some slots. You can use the named slot to render custom play button and loader:
+
+| Slot | Description |
+| ------ | ------ |
+| button | Slot gives an ability to provide custom play button |
+| loader | Slot gives an ability to provide custom loader |
+
+
+
+### Methods
 These methods let you control the player using JavaScript, so you can perform the operations like `play`, `stop`, `pause` and `reset`.
 
 >The user's browser must support the HTML5 postMessage feature. Most modern browsers support postMessage.
@@ -92,7 +120,8 @@ These methods let you control the player using JavaScript, so you can perform th
 | resetView | `function` | `this.$refs["lazyVideo"]['resetView']()` |
 
 _Note: Must Replace `lazyVideo` with your [ref](https://v3.vuejs.org/guide/component-template-refs.html)._
-#### Example
+
+### Example
 ```javascript
 <template>
     <LazyYoutube
@@ -119,6 +148,9 @@ _Note: Must Replace `lazyVideo` with your [ref](https://v3.vuejs.org/guide/compo
 </script>
 ```
 
-### Open Source License
+## Open Source License
 
 You may use it under the terms of the [MIT Licenses](https://opensource.org/licenses/MIT)
+
+## Buy Me a Coffee
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dseeratawan%26type%3Dpledges&style=for-the-badge)](https://patreon.com/seeratawan)

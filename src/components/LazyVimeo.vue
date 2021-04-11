@@ -18,18 +18,24 @@
           <span class="ly-text">{{isCustomTitleExist ? customTitle : getTitle}}</span>
         </template>
 
-        <button v-show="!clicked">
-          <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
-            <path class="ly-large-play-button-bg--v"
-                  d="M 63 0 C 55.79 0.13 34 0 34 0 S 12.21 0.13 0 0 C 0.06 13.05 0 24 0 24 s 0.06 10.95 0 24 C 12.21 47.87 34 48 34 48 s 21.79 -0.13 34 -0 C 67.94 34.95 68 24 68 24 S 67.94 13.05 68 0 z" fill="#00adef"></path>
-            <path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
+        <button  class="ly-button-wrapper" v-show="!clicked">
+          <slot name="button">
+              <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
+                <path class="ly-large-play-button-bg--v"
+                      d="M 63 0 C 55.79 0.13 34 0 34 0 S 12.21 0.13 0 0 C 0.06 13.05 0 24 0 24 s 0.06 10.95 0 24 C 12.21 47.87 34 48 34 48 s 21.79 -0.13 34 -0 C 67.94 34.95 68 24 68 24 S 67.94 13.05 68 0 z" fill="#00adef"></path>
+                <path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
+          </slot>
         </button>
 
-        <span v-show="clicked" class="ly-ring">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+        <div v-show="clicked" class="ly-loader-wrapper">
+          <slot name="loader">
+              <span  class="ly-ring">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+          </slot>
+        </div>
       </template>
 
       <template v-else-if="!fetchingInfo">

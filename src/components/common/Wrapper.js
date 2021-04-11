@@ -7,6 +7,7 @@ export default  styled('div', divProps)`
   --aspect-ratio:  ${props => props.aspectRatioValue? props.aspectRatioValue : 56}
   max-width:  ${props => props.maxWidth? props.maxWidth : '560px'}
   width: 100%;
+  display: inline-block;
  
   background-color: #000000;
   position: relative;

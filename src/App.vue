@@ -8,7 +8,17 @@
                 :src="vimeoLink"
                 max-width="720px"
                 aspect-ratio="16:9"
-                thumbnail-quality="standard"/>
+                thumbnail-quality="standard">
+
+      <template v-slot:button>
+        <button>Play</button>
+      </template>
+
+      <template v-slot:loader>
+        <button>Loading</button>
+      </template>
+    </LazyVimeo>
+
 
     <div class="buttons">
       <button @click="handleClick('playVideo', 'vimeoLazyVideo')">Play</button>

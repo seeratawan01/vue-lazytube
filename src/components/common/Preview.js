@@ -4,7 +4,7 @@ export default  styled('a')`
   text-decoration: none;
   padding: 21px !important;
   color: #ffffff;
-  
+
   img {
     position: absolute;
     width: 100%;
@@ -14,7 +14,7 @@ export default  styled('a')`
     left: 0;
     pointer-events: none;
   }
-  
+
   background-size: cover;
 
   display: block;
@@ -24,6 +24,16 @@ export default  styled('a')`
   cursor: pointer;
   position: absolute;
   top: 0;
+
+  &:after {
+    background: radial-gradient(circle,rgba(19, 19, 27, 0.13) 0%,rgba(0,0,0,0) 40%,rgba(86, 88, 88, 0.09) 100%) no-repeat center center fixed;
+    content: "";
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
 
   &:before {
     content: "";
@@ -41,7 +51,9 @@ export default  styled('a')`
     -webkit-transition: opacity .25s cubic-bezier(0.0, 0.0, 0.2, 1);
     transition: opacity .25s cubic-bezier(0.0, 0.0, 0.2, 1);
     pointer-events: none;
+    opacity: 0.9;
   }
+
   .ly-error-container {
     position: absolute;
     left: 50%;
@@ -58,6 +70,7 @@ export default  styled('a')`
 
     padding: 0 4rem;
   }
+
   .ly-error-icon {
     height: 64px;
     width: 64px;
@@ -66,18 +79,20 @@ export default  styled('a')`
     margin-right: 12px;
     margin-top: -4px;
   }
+
   .ly-error-content {
     display: flex;
     flex-direction: column;
-    
+
     text-shadow: 0 0 2px rgba(0, 0, 0, .5);
     font-family: "YouTube Noto", Roboto, Arial, Helvetica, sans-serif;
-    
-    &__reason{
+
+    &__reason {
       font-size: 22px;
       padding-bottom: 10px;
-    }  
-    &__subreason{
+    }
+
+    &__subreason {
       font-size: 18px;
     }
   }
@@ -102,7 +117,7 @@ export default  styled('a')`
     -webkit-transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);
     transition: opacity .25s cubic-bezier(0, 0, 0.2, 1);
     z-index: 63;
-    
+
   }
 
   .ly-text {
@@ -116,6 +131,7 @@ export default  styled('a')`
     text-overflow: ellipsis;
     display: block;
     font-size: 18px;
+    color: #ffffff;
   }
 
   .ly-large-play-button-bg, .ly-large-play-button-bg--v {
@@ -145,11 +161,11 @@ export default  styled('a')`
     width: 80px;
     height: 80px;
     position: absolute;
+    z-index: 8;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
-    background-image: radial-gradient(#ffffff05 10%,#2a2d2a4f,#ffffff05 80%);
+    
 
     span {
       box-sizing: border-box;
@@ -158,10 +174,10 @@ export default  styled('a')`
       width: 67px;
       height: 67px;
       margin: 6px;
-      border: 7px solid #F8F8F8;
+      border: 7px solid #ffffff;
       border-radius: 50%;
       animation: ly-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: #F8F8F8 transparent transparent transparent;
+      border-color: #FFFFFF transparent transparent transparent;
 
       &:nth-child(1) {
         animation-delay: -0.45s;
