@@ -1,6 +1,6 @@
-import styled from 'vue-styled-components';
+import styled from 'vue-styled-components'
 
-export default  styled('a')`
+export default styled('a')`
   text-decoration: none;
   padding: 21px !important;
   color: #ffffff;
@@ -203,4 +203,4 @@ export default  styled('a')`
     }
   }
 
-`;
+`
