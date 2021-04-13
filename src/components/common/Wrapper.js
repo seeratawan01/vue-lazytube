@@ -1,11 +1,11 @@
-import styled from 'vue-styled-components';
+import styled from 'vue-styled-components'
 
-const divProps = { aspectRatioValue: String | Number, maxWidth: String };
+const divProps = { aspectRatioValue: String | Number, maxWidth: String }
 
-export default  styled('div', divProps)`
+export default styled('div', divProps)`
 
-  --aspect-ratio:  ${props => props.aspectRatioValue? props.aspectRatioValue : 56}
-  max-width:  ${props => props.maxWidth? props.maxWidth : '560px'}
+  --aspect-ratio:  ${props => props.aspectRatioValue ? props.aspectRatioValue : 56}
+  max-width:  ${props => props.maxWidth ? props.maxWidth : '560px'}
   width: 100%;
   display: inline-block;
  
@@ -34,4 +34,4 @@ export default  styled('div', divProps)`
   width: 100%;
   height: 100%;
 }
-`;
+`
