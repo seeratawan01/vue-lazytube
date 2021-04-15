@@ -17,11 +17,7 @@ export default {
             let self = this;
             let url = ''
 
-            if(type === 'youtube') {
-                url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json`
-            } else {
-                url = `https://vimeo.com/api/oembed.json?url=${this.src}`
-            }
+            url = type === 'youtube' ? `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json` : `https://vimeo.com/api/oembed.json?url=${this.src}`;
             axios.get(url)
                 .then(function (response) {
                     // handle success
@@ -101,11 +97,8 @@ export default {
         },
         calcAspect (aspect) {
             let aspects = aspect.split(':')
-            if(typeof aspects[1] === "undefined") {
-                return 56.25; /* 16:9 */
-            } else {
-                return aspects[1]/aspects[0] * 100
-            }
+
+            return typeof aspects[1] === "undefined" ? 56.25 : aspects[1]/aspects[0] * 100
         },
         handleLoad () {
             if(this.fetchingInfo === false) {
