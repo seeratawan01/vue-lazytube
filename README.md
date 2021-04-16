@@ -1,4 +1,5 @@
 # Vue Lazytube
+
 Embed a YouTube or Vimeo player easily and lazy load the video to save resources and reduces initial load size.
 Useful when performance and page size is important or for sites with many embedded videos.
 
@@ -6,6 +7,9 @@ For a simple example page with 10 videos, vue-lazytube will reduce loadtime by 7
 
 
 [Demo online](https://codesandbox.io/s/vue-lazytube-forked-17o8v?file=/src/App.vue) | [Tutorial](https://medium.com/geekculture/light-and-responsive-youtube-embeds-faster-vue-web-page-load-speeds-c8e477b93f0f) | [Sponsor](https://patreon.com/seeratawan)
+
+[![GitHub release](https://img.shields.io/github/package-json/v/seeratawan01/vue-lazytube?label=Version%20)](https://github.com/seeratawan01/vue-lazytube) [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT) [![downloads](https://img.shields.io/npm/dt/vue-lazytube?color=orange&label=Downloads)](https://www.npmjs.com/package/vue-lazytube)  [![filesize](https://img.shields.io/bundlephobia/min/vue-lazytube?color=yellow&label=File%20Size)](https://www.npmjs.com/package/vue-lazytube)
+
 
 ---
 #### Table of Content
