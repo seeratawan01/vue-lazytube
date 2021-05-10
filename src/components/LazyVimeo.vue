@@ -90,7 +90,7 @@ name: "LazyVimeo",
       type: String,
       default: '16:9',
       validator: function (value) {
-        return /^\d+:\d+$/.test(value)
+        return /^\d+:\d+$/u.test(value)
       },
     },
     showTitle: {

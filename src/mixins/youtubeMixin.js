@@ -1,9 +1,9 @@
 export default {
     methods: {
         getYouTubeID (url) {
-            url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+            url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/u);
             /* eslint-disable no-useless-escape */
-            return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+            return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/iu)[0] : url[0];
         },
         pauseVideo() {
             if(!this.isPostMessageSupported) {
