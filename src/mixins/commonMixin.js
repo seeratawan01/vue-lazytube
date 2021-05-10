@@ -43,7 +43,6 @@ export default {
     },
     isPostMessageSupported () {
       if (!window.postMessage) {
-        
         return false
       }
       return true
@@ -100,7 +99,6 @@ export default {
       if (this.fetchingInfo === false) {
         if (!this.onceLoaded) {
           this.onceLoaded = true
-          
         }
       }
     }
