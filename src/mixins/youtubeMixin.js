@@ -56,7 +56,7 @@ export default {
           quality_key = 'maxresdefault'
         }
 
-        thumbnail = 'http://img.youtube.com/vi/' + video_id + '/' + quality_key + '.jpg'
+        thumbnail = 'https://img.youtube.com/vi/' + video_id + '/' + quality_key + '.jpg'
         return thumbnail
       }
 

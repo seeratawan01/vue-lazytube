@@ -5,12 +5,12 @@
         @click="createIframe(isVideoFound, 'vimeo')">
       <template v-if="isVideoFound ">
 
-        <img v-if="isCustomThumbnailExist" :src="customThumbnail" alt=""
+        <img v-if="isCustomThumbnailExist" :src="customThumbnail" :alt="'Click to Play Video -' + isCustomTitleExist ? customTitle : getTitle"
              @error="$event.target.src=getVimeoThumbnail(videoID, thumbnailQuality)"
         >
         <img
             v-else
-            :src="getVimeoThumbnail(videoID, thumbnailQuality)" alt=""
+            :src="getVimeoThumbnail(videoID, thumbnailQuality)" :alt="'Click to Play Video -' + isCustomTitleExist ? customTitle : getTitle"
             @error="$event.target.src=videoInfo.thumbnail_url"
         >
 
