@@ -5,12 +5,12 @@
           @click="createIframe(isVideoFound, 'youtube')">
 
         <template v-if="isVideoFound ">
-          <img v-if="isCustomThumbnailExist" :src="customThumbnail" alt=""
+          <img v-if="isCustomThumbnailExist" :src="customThumbnail" :alt="'Video' + isCustomTitleExist ? customTitle : getTitle"
                 @error="$event.target.src=getYoutubeThumbnail(videoID, thumbnailQuality)"
           >
           <img
               v-else
-              :src="getYoutubeThumbnail(videoID, thumbnailQuality)" alt=""
+              :src="getYoutubeThumbnail(videoID, thumbnailQuality)" :alt="'Video' + isCustomTitleExist ? customTitle : getTitle"
           >
           <template v-if="showTitle">
             <span class="ly-text">{{isCustomTitleExist ? customTitle : getTitle}}</span>
