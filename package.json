@@ -1,6 +1,6 @@
 {
-  "name": "vue-lazytube",
-  "version": "1.0.2",
+  "name": "@jxlstudio/vue-lazytube",
+  "version": "1.0.3",
   "private": false,
   "keywords": [
     "youtube",
