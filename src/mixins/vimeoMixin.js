@@ -1,3 +1,5 @@
+const axios = require('axios').default
+
 export default {
     methods: {
         playVideo() {
@@ -31,35 +33,14 @@ export default {
         },
 
         getVimeoThumbnail(video_id, quality){
-            let thumbnail;
-
-            if(video_id){
-                if(typeof quality == "undefined"){
-                    quality = 'high';
-                }
-
-                let quality_key = '960x540';
-                if(quality === 'default'){
-                    quality_key = '200x150';
-                }
-                else if(quality === 'medium'){
-                    quality_key = '295x166';
-                }
-                else if(quality === 'high'){
-                    quality_key = '640x360';
-                }
-                else if (quality === 'standard') {
-                    quality_key = '960x540';
-                }
-                else if (quality === 'maxres') {
-                    quality_key = '1280x720';
-                }
-
-                thumbnail = "https://i.vimeocdn.com/video/"+video_id+"_"+quality_key+".jpg";
-                return thumbnail;
+            if(!video_id) return false;
+            if(!['small', 'medium', 'large'].includes(quality)) {
+                quality = 'medium';
             }
 
-            return false;
+            return axios
+                .get(`http://vimeo.com/api/v2/video/${video_id}.json`)
+                .then(({data}) => data[`thumbnail_${quality}`]);
         }
     }
 };
