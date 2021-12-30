@@ -34,13 +34,12 @@ export default {
 
         getVimeoThumbnail(video_id, quality){
             if(!video_id) return false;
-            if(!['small', 'medium', 'large'].includes(quality)) {
-                quality = 'medium';
-            }
+            
+            const _quality = ['small', 'medium', 'large'].includes(quality) ? quality: 'medium';
 
             return axios
                 .get(`http://vimeo.com/api/v2/video/${video_id}.json`)
-                .then(({data}) => data[`thumbnail_${quality}`]);
+                .then(({data}) => data[`thumbnail_${_quality}`]);
         }
     }
 };
