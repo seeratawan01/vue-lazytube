@@ -39,7 +39,7 @@ export default {
             if(!video_id) return false;
             
             const _quality = ['small', 'medium', 'large'].includes(quality) ? quality: 'medium';
-            return this.videoInfo['thumbnail_'+_quality];
+            return this.videoInfo[`thumbnail_${_quality}`];
         }
     }
 };

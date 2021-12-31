@@ -36,8 +36,6 @@ export default {
       }
     },
     getYoutubeThumbnail (video_id, quality) {
-      let thumbnail
-
       if (video_id) {
         if (typeof quality === 'undefined') {
           quality = 'high'
@@ -56,8 +54,7 @@ export default {
           quality_key = 'maxresdefault'
         }
 
-        thumbnail = 'https://img.youtube.com/vi/' + video_id + '/' + quality_key + '.jpg'
-        return thumbnail
+        return `https://img.youtube.com/vi/${video_id}/${quality_key}.jpg`;
       }
 
       return false

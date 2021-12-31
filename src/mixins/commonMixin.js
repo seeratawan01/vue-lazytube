@@ -20,13 +20,11 @@ export default {
       url = type === 'youtube' ? `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json` : `https://vimeo.com/api/v2/video/${this.videoID}.json`
       axios.get(url)
         .then(function (response) {
-
-          console.log(response.data);
           // handle success
           if(type === 'youtube') {
             self.videoInfo = response.data
           }
-          
+
           if (type === 'vimeo') {
             self.videoInfo = response.data[0]
           }
