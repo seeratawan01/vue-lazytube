@@ -1,7 +1,10 @@
-const axios = require('axios').default
+// const axios = require('axios').default
 
 export default {
     methods: {
+        getVimeoID (url) {
+            return new URL(url).pathname.split('/').pop();
+        },
         playVideo() {
             if(!this.isPostMessageSupported) {
                 return
@@ -36,10 +39,7 @@ export default {
             if(!video_id) return false;
             
             const _quality = ['small', 'medium', 'large'].includes(quality) ? quality: 'medium';
-
-            return axios
-                .get(`https://vimeo.com/api/v2/video/${video_id}.json`)
-                .then(({data}) => data[`thumbnail_${_quality}`]);
+            return this.videoInfo['thumbnail_'+_quality];
         }
     }
 };

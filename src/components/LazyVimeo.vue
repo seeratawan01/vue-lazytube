@@ -76,11 +76,6 @@ import VideoWrapper from "./common/Wrapper";
 export default {
 name: "LazyVimeo",
   mixins: [commonMixin, vimeoMixin],
-  data() {
-    return {
-      videoID: null
-    }
-  },
   props: {
     src: {
       type: String,
@@ -133,6 +128,9 @@ name: "LazyVimeo",
 
   },
   computed: {
+    videoID: function () {
+      return this.getVimeoID(this.src)
+    },
     aspectRatioValue: function () {
       return this.calcAspect(this.aspectRatio)
     },

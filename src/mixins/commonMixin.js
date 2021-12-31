@@ -17,14 +17,20 @@ export default {
       const self = this
       let url = ''
 
-      url = type === 'youtube' ? `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json` : `https://vimeo.com/api/oembed.json?url=${this.src}`
+      url = type === 'youtube' ? `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${this.videoID}&format=json` : `https://vimeo.com/api/v2/video/${this.videoID}.json`
       axios.get(url)
         .then(function (response) {
+
+          console.log(response.data);
           // handle success
-          self.videoInfo = response.data
-          if (type === 'vimeo') {
-            self.videoID = response.data.video_id
+          if(type === 'youtube') {
+            self.videoInfo = response.data
           }
+          
+          if (type === 'vimeo') {
+            self.videoInfo = response.data[0]
+          }
+
           self.isVideoFound = true
         })
         .catch(function () {
@@ -32,7 +38,7 @@ export default {
           self.videoInfo = null
           self.isVideoFound = false
         })
-        .then(function () {
+        .finally(function () {
           // always executed
           self.fetchingInfo = false
 
