@@ -4,6 +4,12 @@ import { LazyYoutube } from './components/';
 
 <script >
 export default {
+  data () {
+    return {
+      youtubeLink:'https://www.youtube.com/watch?v=TcMBFSGVi1c',
+      vimeoLink:'https://player.vimeo.com/video/64654583'
+    }
+  },
   methods: {
     handleClick(event) {
       this.$refs["lazyVideo"][event]();
@@ -16,7 +22,8 @@ export default {
   <div>
     <LazyYoutube
         ref="lazyVideo"
-        src="https://www.youtube.com/watch?v=TcMBFSGVi1c"
+        :src="youtubeLink"
+
         :autoplay="false"
     >
 <!--      <template v-slot:button>-->

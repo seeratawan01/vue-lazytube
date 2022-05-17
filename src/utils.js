@@ -43,16 +43,20 @@ const calcAspect = (aspect) => {
     return typeof aspects[1] === 'undefined' ? 56.25 : aspects[1] / aspects[0] * 100
 }
 
-/** Helper method to get Video ID from url  */
+/** Helper method to get youtube video ID from url  */
 const getYouTubeID =  (url) => {
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/u)
     /* eslint-disable no-useless-escape */
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/iu)[0] : url[0]
 }
 
+/** Helper method to get vimeo video ID from url  */
+const getVimeoID =  (url) => {
+    return new URL(url).pathname.split('/').pop();
+}
+
 /** Helper method to get Thumbnail for youtube video */
 const getYoutubeThumbnail =  (video_id, quality) => {
-    let thumbnail
 
     if (video_id) {
         if (typeof quality === 'undefined') {
@@ -72,17 +76,49 @@ const getYoutubeThumbnail =  (video_id, quality) => {
             quality_key = 'maxresdefault'
         }
 
-        thumbnail = 'http://img.youtube.com/vi/' + video_id + '/' + quality_key + '.jpg'
-        return thumbnail
+        return 'https://img.youtube.com/vi/' + video_id + '/' + quality_key + '.jpg'
     }
 
     return false
 }
+
+/** Helper method to get Thumbnail for vimeo video */
+const getVimeoThumbnail = (video_id, quality) => {
+
+        if(video_id){
+            if(typeof quality == "undefined"){
+                quality = 'high';
+            }
+
+            let quality_key = '960x540';
+            if(quality === 'default'){
+                quality_key = '200x150';
+            }
+            else if(quality === 'medium'){
+                quality_key = '295x166';
+            }
+            else if(quality === 'high'){
+                quality_key = '640x360';
+            }
+            else if (quality === 'standard') {
+                quality_key = '960x540';
+            }
+            else if (quality === 'maxres') {
+                quality_key = '1280x720';
+            }
+            return "https://i.vimeocdn.com/video/"+video_id+"_"+quality_key+".jpg";
+        }
+
+        return false;
+}
+
 export {
     createIframe,
     isPostMessageSupported,
     calcAspect,
     fetchingOembed,
     getYouTubeID,
-    getYoutubeThumbnail
+    getYoutubeThumbnail,
+    getVimeoID,
+    getVimeoThumbnail
 }

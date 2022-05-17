@@ -1,8 +1,13 @@
 <script>
-import {getYoutubeThumbnail} from "../../utils";
+import {getVimeoThumbnail, getYoutubeThumbnail} from "../../utils";
 
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'youtube',
+      required: false
+    },
     clicked: {
       type: Boolean,
       default: false,
@@ -57,8 +62,12 @@ export default {
     isCustomThumbnailExist () {
       return this.customThumbnail.trim().length > 0
     },
-    defaultYoutubeThumbnail () {
-      return getYoutubeThumbnail(this.videoID, this.defaultThumbnailQuality)
+    defaultThumbnail () {
+      if (this.type === 'youtube') {
+        return getYoutubeThumbnail(this.videoID, this.defaultThumbnailQuality)
+      } else {
+        return  getVimeoThumbnail(this.videoID, this.defaultThumbnailQuality)
+      }
     }
   }
 }
@@ -68,12 +77,12 @@ export default {
   <a class="vlt-preview">
     <template v-if="!onceLoaded">
       <template v-if="isVideoFound ">
-        <img v-if="isCustomThumbnailExist" :src="customThumbnail" alt=""
-             @error="$event.target.src=defaultYoutubeThumbnail"
+        <img v-if="isCustomThumbnailExist" :src="customThumbnail" :alt="'Video - ' + videoTitle"
+             @error="$event.target.src=defaultThumbnail"
         >
         <img
             v-else
-            :src="defaultYoutubeThumbnail" alt=""
+            :src="defaultThumbnail" :alt="'Video - ' + videoTitle"
         >
 
         <template v-if="showTitle">
@@ -83,8 +92,14 @@ export default {
 
         <button  class="ly-button-wrapper" v-show="!clicked">
           <slot name="button">
-            <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
-              <path class="ly-large-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
+            <svg v-if="type === 'youtube'" height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
+              <path class="ly-large-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path>
+            </svg>
+            <svg v-else height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
+              <path class="ly-large-play-button-bg--v"
+                    d="M 63 0 C 55.79 0.13 34 0 34 0 S 12.21 0.13 0 0 C 0.06 13.05 0 24 0 24 s 0.06 10.95 0 24 C 12.21 47.87 34 48 34 48 s 21.79 -0.13 34 -0 C 67.94 34.95 68 24 68 24 S 67.94 13.05 68 0 z" fill="#00adef"></path>
+              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+            </svg>
           </slot>
         </button>
 

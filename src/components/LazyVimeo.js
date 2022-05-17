@@ -1,11 +1,10 @@
 import {defineComponent, h, isVue2} from "vue-demi"
 import Wrapper from "./common/Wrapper.vue";
 import Preview from "./common/Preview.vue";
-import {calcAspect, createIframe, fetchingOembed, getYouTubeID, isPostMessageSupported} from '../utils'
+import {calcAspect, createIframe, fetchingOembed, getVimeoID, getYouTubeID, isPostMessageSupported} from '../utils'
 import Helper from "../Helper.vue";
 
 export default defineComponent({
-    mixins: [Helper],
     props: {
         src: {
             type: String,
@@ -60,6 +59,7 @@ export default defineComponent({
             required: false
         },
     },
+    mixins: [Helper],
     data() {
         return {
             clicked: false,
@@ -74,7 +74,7 @@ export default defineComponent({
     mounted() {
         if (this.oembedFetch) {
             // Fetch Oembed
-            fetchingOembed(this.src)
+            fetchingOembed(this.src, 'vimeo')
                 .then(function(response) {
                 return response.json()
             }).then(response => {
@@ -100,13 +100,14 @@ export default defineComponent({
         }
     },
     methods: {
+
         pauseVideo () {
             if (!isPostMessageSupported) {
                 return
             }
 
             if (this.iframeEl !== null) {
-                this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*')
+                this.iframeEl.contentWindow.postMessage('{"method":"pause"}', '*');
             }
         },
         playVideo () {
@@ -115,9 +116,9 @@ export default defineComponent({
             }
 
             if (this.iframeEl === null) {
-                this.initiateIframe(this.autoplay)
+                this.initiateIframe(this.autoplay, 'vimeo')
             } else {
-                this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*')
+                this.iframeEl.contentWindow.postMessage('{"method":"play"}', '*');
             }
         },
 
@@ -127,15 +128,17 @@ export default defineComponent({
             }
 
             if (this.iframeEl !== null) {
-                this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*')
+                this.iframeEl.contentWindow.postMessage('{"method":"pause"}', '*');
             }
         },
-
     },
     computed: {
         videoID: function () {
-            return getYouTubeID(this.src)
+            return getVimeoID(this.src)
         },
+        processedThumbnail () {
+            return  this.customThumbnail ? this.customThumbnail : (this.videoInfo !== null) ? this.videoInfo['thumbnail_url'] : ''
+        }
     },
     render() {
 
@@ -155,10 +158,11 @@ export default defineComponent({
                 maxWidth: this.maxWidth
             },
             () => [h(Preview, {
+                type: 'vimeo',
                 isVideoFound: this.isVideoFound,
                 fetchingInfo: this.fetchingInfo,
                 defaultThumbnailQuality: this.thumbnailQuality,
-                customThumbnail: this.customThumbnail,
+                customThumbnail: this.processedThumbnail,
                 videoTitle: this.getTitle,
                 videoID: this.videoID,
                 showTitle: this.showTitle,
@@ -170,7 +174,7 @@ export default defineComponent({
                 onClick: () => {
                     this.clicked = true
                     if (this.fetchingInfo === false && !this.onceLoaded && this.isVideoFound) {
-                        this.initiateIframe()
+                        this.initiateIframe(false, 'vimeo')
                     }
                 }
             }, {
