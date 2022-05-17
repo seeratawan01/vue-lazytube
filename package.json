@@ -2,78 +2,39 @@
   "name": "vue-lazytube",
   "version": "1.0.2",
   "private": false,
-  "keywords": [
-    "youtube",
-    "youtube-video",
-    "vimeo",
-    "vue-youtube",
-    "lazyload",
-    "vue",
-    "vuejs",
-    "iframe",
-    "lazytube",
-    "plugin"
-  ],
-  "homepage": "https://github.com/seeratawan01/vue-lazytube",
-  "bugs": "https://github.com/seeratawan01/vue-lazytube/issues",
   "files": [
-    "dist/*"
+    "dist"
   ],
-  "author": {
-    "name": "Seerat Awan",
-    "email": "seeratsdsking@gmail.com",
-    "url": "https://github.com/seeratawan01/"
+  "main": "./dist/vue-lazytube.umd.js",
+  "module": "./dist/vue-lazytube.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-lazytube.es.js",
+      "require": "./dist/vue-lazytube.umd.js"
+    }
   },
-  "main": "./dist/vue-lazytube.umd.min.js",
-  "unpkg": "./dist/vue-lazytube.umd.min.js",
-  "jsdelivr": "./dist/vue-lazytube.umd.min.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vue-lazytube src/index.js",
-    "build:tgz": "vue-cli-service build --target lib --name vue-lazytube src/index.js && npm pack",
-    "pack": "npm pack",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
-  "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
-    "core-js": "^3.6.5",
-    "vue-styled-components": "^1.6.0"
+    "vue": "^3.2.25",
+    "vue-demi": "^0.12.5",
+    "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "@vitejs/plugin-vue": "^2.3.3",
+    "sass": "^1.51.0",
+    "vite": "^2.9.9"
   },
   "peerDependencies": {
-    "vue": "^2.6.11"
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
   },
-  "externals": {
-    "vue": "vue"
-  },
-  "funding": "https://www.patreon.com/seeratawan",
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  }
 }
