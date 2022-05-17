@@ -144,11 +144,37 @@ export default defineComponent({
 
         if (isVue2) {
             return h(
-                "button",
+                Wrapper,
                 {
-
+                    aspectRatioValue: this.aspectRatioValue,
+                    maxWidth: this.maxWidth
                 },
-                this.$slots.default ? this.$slots.default : "PROCEED TO PAYMENT"
+                () => [h(Preview, {
+                    type: 'vimeo',
+                    isVideoFound: this.isVideoFound,
+                    fetchingInfo: this.fetchingInfo,
+                    defaultThumbnailQuality: this.thumbnailQuality,
+                    customThumbnail: this.processedThumbnail,
+                    videoTitle: this.getTitle,
+                    videoID: this.videoID,
+                    showTitle: this.showTitle,
+
+                    clicked: this.clicked,
+                    onceLoaded: this.onceLoaded,
+
+                    on: {
+                        click: () => {
+                            this.clicked = true
+                            if (this.fetchingInfo === false && !this.onceLoaded && this.isVideoFound) {
+                                this.initiateIframe(false, 'vimeo')
+                            }
+                        }
+                    },
+
+                }, {
+                    button: () => this.$slots.button ? this.$slots.button() : null,
+                    loader: () => this.$slots.loader ? this.$slots.loader() : null,
+                })]
             )
         }
         return h(
