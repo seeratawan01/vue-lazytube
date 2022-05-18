@@ -5,12 +5,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-lazytube.umd.js",
-  "module": "./dist/vue-lazytube.es.js",
+  "main": "./lib/vue-lazytube.umd.js",
+  "module": "./lib/vue-lazytube.es.js",
   "exports": {
     ".": {
-      "import": "./dist/vue-lazytube.es.js",
-      "require": "./dist/vue-lazytube.umd.js"
+      "import": "./lib/vue-lazytube.es.js",
+      "require": "./libxk/vue-lazytube.umd.js"
     }
   },
   "scripts": {
@@ -19,14 +19,19 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.6.1",
     "vue": "^3.2.25",
     "vue-demi": "^0.12.5",
+    "vue-global-config": "^0.0.2",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.12",
+    "@rollup/plugin-babel": "^5.3.1",
     "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/compiler-sfc": "^3.2.33",
     "sass": "^1.51.0",
-    "vite": "^2.9.9"
+    "vite": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-rc.1",

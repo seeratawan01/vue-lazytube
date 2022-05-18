@@ -1,5 +1,5 @@
 <script setup>
-import { LazyYoutube } from './components/';
+import { LazyVimeo } from './components/';
 </script>
 
 <script >
@@ -20,16 +20,16 @@ export default {
 
 <template>
   <div>
-    <LazyYoutube
+    <LazyVimeo
         ref="lazyVideo"
-        :src="youtubeLink"
+        :src="vimeoLink"
 
         :autoplay="false"
     >
 <!--      <template v-slot:button>-->
 <!--        Loading-->
 <!--      </template>-->
-    </LazyYoutube>
+    </LazyVimeo>
 
     <button @click="handleClick('playVideo')">Play</button>
     <button @click="handleClick('stopVideo')">Stop</button>
