@@ -11,7 +11,7 @@
                 thumbnail-quality="standard">
 
       <template v-slot:button>
-        <button>Play</button>
+<!--        <button>Play</button>-->
       </template>
 
       <template v-slot:loader>

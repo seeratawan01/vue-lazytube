@@ -1,83 +1,55 @@
 <template>
-    <VideoWrapper :aspectRatioValue="aspectRatioValue" :maxWidth="maxWidth">
-      <Preview
-          v-if="!onceLoaded"
-          @click="createIframe(isVideoFound, 'youtube')">
+  <VideoWrapper :aspectRatioValue="aspectRatioValue" :maxWidth="maxWidth">
+    <Preview
+        :isVideoFound="isVideoFound"
+        :fetchingInfo="fetchingInfo"
+        :defaultThumbnailQuality="thumbnailQuality"
+        :customThumbnail="customThumbnail"
+        :videoTitle="getTitle"
+        :videoID="videoID"
+        :showTitle="showTitle"
 
-        <template v-if="isVideoFound ">
-          <img v-if="isCustomThumbnailExist" :src="customThumbnail" alt=""
-                @error="$event.target.src=getYoutubeThumbnail(videoID, thumbnailQuality)"
-          >
-          <img
-              v-else
-              :src="getYoutubeThumbnail(videoID, thumbnailQuality)" alt=""
-          >
-          <template v-if="showTitle">
-            <span class="ly-text">{{isCustomTitleExist ? customTitle : getTitle}}</span>
-          </template>
+        :clicked="clicked"
+        :onceLoaded="onceLoaded"
+        @click="handleClick"
+    >
+      <template v-slot:button>
+        <slot name="button"/>
+      </template>
 
-          <button  class="ly-button-wrapper" v-show="!clicked">
-            <slot name="button">
-                <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
-                  <path class="ly-large-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
-            </slot>
-          </button>
+      <template v-slot:loader>
+        <slot name="loader"/>
+      </template>
 
-          <div v-show="clicked" class="ly-loader-wrapper">
-            <slot name="loader">
-              <span  class="ly-ring">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </slot>
-          </div>
-        </template>
-
-        <template v-else-if="!fetchingInfo">
-          <div class="ly-error-container">
-            <span class="ly-error-icon">
-              <svg fill="#fff" viewBox="0 0 48 48">
-                <path d="M0 0h48v48H0V0z" fill="none"></path>
-                <path d="M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z" fill-opacity="0.7"></path>
-              </svg>
-            </span>
-
-            <span class="ly-error-content">
-            <span class="ly-error-content__reason">
-              <span>Video unavailable</span>
-            </span>
-            <span class="ly-error-content__subreason">
-              <span>This video is unavailable.</span>
-            </span>
-          </span>
-          </div>
-
-        </template>
-      </Preview>
-
-      <div class="ly-iframe-wrapper"  v-show="onceLoaded">
-      </div>
-    </VideoWrapper>
+    </Preview>
+  </VideoWrapper>
 </template>
 
 <script>
 
-
-// Importing Mixins
-import youtubeMixin from '../mixins/youtubeMixin'
-import commonMixin from "../mixins/commonMixin";
-
 // Importing Components
-import VideoWrapper from './common/Wrapper'
-import Preview from './common/Preview'
+import VideoWrapper from './common/Wrapper.vue'
+import Preview from './common/Preview.vue'
+import Helper from "../mixins/Helper.vue";
+import {fetchingOembed, getYouTubeID, isPostMessageSupported} from "../utils";
 
 export default {
   name: "LazyYoutube",
-  mixins: [commonMixin,youtubeMixin],
+  mixins: [Helper],
   components: {
     VideoWrapper,
     Preview
+  },
+  data() {
+    return {
+      clicked: false,
+      onceLoaded: false,
+
+      iframeEl: null,
+      videoInfo: null,
+      fetchingInfo: true,
+      isVideoFound: false
+    }
   },
   props: {
     src: {
@@ -88,66 +60,145 @@ export default {
       type: String,
       default: '16:9',
       validator: function (value) {
-          return /^\d+:\d+$/u.test(value)
+        return /^\d+:\d+$/u.test(value)
       },
+      required: false
     },
     showTitle: {
       type: Boolean,
-      default: true
+      default: true,
+      required: false
     },
     maxWidth: {
       type: String,
-      default: '560px'
+      default: '560px',
+      required: false
     },
     autoplay: {
       type: Boolean,
-      default: false
+      default: false,
+      required: false
     },
     thumbnailQuality: {
       type: String,
-      default: 'standard'
+      default: 'standard',
+      required: false
     },
     iframeClass: {
       type: String,
-      default: 'ly-iframe'
+      default: 'ly-iframe',
+      required: false
     },
     customTitle: {
       type: String,
-      default: ''
+      default: '',
+      required: false
     },
     customThumbnail: {
       type: String,
-      default: ''
-    }
+      default: '',
+      required: false
+    },
+    oembedFetch: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
   },
+
   computed: {
     videoID: function () {
-      return this.getYouTubeID(this.src)
+      return getYouTubeID(this.src)
     },
-    aspectRatioValue: function () {
-      return this.calcAspect(this.aspectRatio)
-    },
-    getTitle:function () {
-      return this.videoInfo !== null ? this.videoInfo.title : ''
-    },
-    isCustomTitleExist () {
-      return this.customTitle.trim().length > 0
-    },
-    isCustomThumbnailExist () {
-      return this.customThumbnail.trim().length > 0
-    }
   },
+
   mounted() {
-    this.$nextTick(function () {
-      this.fetchingOembed('youtube')
-    })
+    this.fetchingOembed()
+  },
+  methods: {
+    handleClick() {
+      this.clicked = true
+      if (this.fetchingInfo === false && !this.onceLoaded && this.isVideoFound) {
+        this.initiateIframe()
+      }
+    },
+    pauseVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl !== null) {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*')
+      }
+    },
+    playVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl === null) {
+        this.initiateIframe(this.autoplay)
+      } else {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*')
+      }
+    },
+
+    stopVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl !== null) {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*')
+      }
+    },
+
+    fetchingOembed() {
+      if (this.oembedFetch) {
+        // Fetch Oembed
+        fetchingOembed(this.src)
+            .then(function (response) {
+              return response.json()
+            }).then(response => {
+          this.videoInfo = response
+          this.isVideoFound = true
+        })
+            .catch(() => {
+              // handle error
+              this.videoInfo = null
+              this.isVideoFound = false
+            })
+            .finally(() => {
+              // always executed
+              this.fetchingInfo = false
+
+              if (this.autoplay) {
+                this.playVideo()
+              }
+            })
+      } else {
+        this.isVideoFound = true
+        this.fetchingInfo = false
+      }
+    },
+
+    resetState() {
+      this.resetView()
+      this.clicked = false
+      this.onceLoaded = false
+      this.iframeEl = null
+      this.videoInfo = null
+      this.fetchingInfo = true
+      this.isVideoFound = false
+    },
 
   },
+
   watch: {
     'src': function (val, oldVal) {
-      if(val !== oldVal) {
+      if (val !== oldVal) {
         this.resetState();
-        this.fetchingOembed('youtube')
+        this.fetchingOembed()
       }
     }
   }

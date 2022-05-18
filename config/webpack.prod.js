@@ -22,6 +22,7 @@ module.exports = merge({}, {
 
     module: {
         rules: [
+            // JavaScript: Use Babel to transpile JavaScript files
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
@@ -32,7 +33,21 @@ module.exports = merge({}, {
                 use: {
                     loader: 'babel-loader'
                 }
-            }
+            },
+
+            // Styles: Inject CSS into the head with source maps
+            {
+                test: /\.(scss|css)$/,
+                use: [
+                    // Note: Only style-loader works for me !!!
+                    // 'vue-style-loader',
+                    'style-loader',
+                    {loader: 'css-loader', options: {sourceMap: true, importLoaders: 1}},
+                    {loader: 'postcss-loader', options: {sourceMap: true}},
+                    {loader: 'sass-loader', options: {sourceMap: true}},
+                ],
+            },
+
         ]
     },
     plugins: [
