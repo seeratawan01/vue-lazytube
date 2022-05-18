@@ -1,84 +1,55 @@
 <template>
   <VideoWrapper :aspectRatioValue="aspectRatioValue" :maxWidth="maxWidth">
     <Preview
-        v-if="!onceLoaded && videoID"
-        @click="createIframe(isVideoFound, 'vimeo')">
-      <template v-if="isVideoFound ">
+        type="vimeo"
+        :isVideoFound="isVideoFound"
+        :fetchingInfo="fetchingInfo"
+        :defaultThumbnailQuality="thumbnailQuality"
+        :customThumbnail="processedThumbnail"
+        :videoTitle="getTitle"
+        :videoID="videoID"
+        :showTitle="showTitle"
 
-        <img v-if="isCustomThumbnailExist" :src="customThumbnail" alt=""
-             @error="$event.target.src=getVimeoThumbnail(videoID, thumbnailQuality)"
-        >
-        <img
-            v-else
-            :src="getVimeoThumbnail(videoID, thumbnailQuality)" alt=""
-            @error="$event.target.src=videoInfo.thumbnail_url"
-        >
-
-        <template v-if="showTitle">
-          <span class="ly-text">{{isCustomTitleExist ? customTitle : getTitle}}</span>
-        </template>
-
-        <button  class="ly-button-wrapper" v-show="!clicked">
-          <slot name="button">
-              <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
-                <path class="ly-large-play-button-bg--v"
-                      d="M 63 0 C 55.79 0.13 34 0 34 0 S 12.21 0.13 0 0 C 0.06 13.05 0 24 0 24 s 0.06 10.95 0 24 C 12.21 47.87 34 48 34 48 s 21.79 -0.13 34 -0 C 67.94 34.95 68 24 68 24 S 67.94 13.05 68 0 z" fill="#00adef"></path>
-                <path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>
-          </slot>
-        </button>
-
-        <div v-show="clicked" class="ly-loader-wrapper">
-          <slot name="loader">
-              <span  class="ly-ring">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-          </slot>
-        </div>
+        :clicked="clicked"
+        :onceLoaded="onceLoaded"
+        @click="handleClick"
+    >
+      <template v-slot:button>
+        <slot name="button"/>
       </template>
 
-      <template v-else-if="!fetchingInfo">
-        <div class="ly-error-container">
-            <span class="ly-error-icon">
-              <svg fill="#fff" viewBox="0 0 48 48">
-                <path d="M0 0h48v48H0V0z" fill="none"></path>
-                <path d="M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z" fill-opacity="0.7"></path>
-              </svg>
-            </span>
-
-          <span class="ly-error-content">
-            <span class="ly-error-content__reason">
-              <span>Video unavailable</span>
-            </span>
-            <span class="ly-error-content__subreason">
-              <span>This video is unavailable or embed permissions are disabled for this video</span>
-            </span>
-          </span>
-        </div>
-
+      <template v-slot:loader>
+        <slot name="loader"/>
       </template>
+
     </Preview>
-
-    <div class="ly-iframe-wrapper"  v-show="onceLoaded">
-    </div>
   </VideoWrapper>
 </template>
 
 <script>
-import vimeoMixin from "../mixins/vimeoMixin";
-import commonMixin from "../mixins/commonMixin";
 
 // Importing Components
-import Preview from "./common/Preview";
-import VideoWrapper from "./common/Wrapper";
+import VideoWrapper from './common/Wrapper.vue'
+import Preview from './common/Preview.vue'
+import Helper from "../mixins/Helper.vue";
+import {fetchingOembed, getVimeoID, isPostMessageSupported} from "../utils";
 
 export default {
-name: "LazyVimeo",
-  mixins: [commonMixin, vimeoMixin],
+  name: "LazyVimeo",
+  mixins: [Helper],
+  components: {
+    VideoWrapper,
+    Preview
+  },
   data() {
     return {
-      videoID: null
+      clicked: false,
+      onceLoaded: false,
+
+      iframeEl: null,
+      videoInfo: null,
+      fetchingInfo: true,
+      isVideoFound: false
     }
   },
   props: {
@@ -92,71 +63,148 @@ name: "LazyVimeo",
       validator: function (value) {
         return /^\d+:\d+$/u.test(value)
       },
+      required: false
     },
     showTitle: {
       type: Boolean,
-      default: true
+      default: true,
+      required: false
     },
     maxWidth: {
       type: String,
-      default: '560px'
+      default: '560px',
+      required: false
     },
     autoplay: {
       type: Boolean,
-      default: false
+      default: false,
+      required: false
     },
     thumbnailQuality: {
       type: String,
-      default: 'standard'
+      default: 'standard',
+      required: false
     },
     iframeClass: {
       type: String,
-      default: 'ly-iframe'
+      default: 'ly-iframe',
+      required: false
     },
     customTitle: {
       type: String,
-      default: ''
+      default: '',
+      required: false
     },
     customThumbnail: {
       type: String,
-      default: ''
+      default: '',
+      required: false
+    },
+    oembedFetch: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+  },
+
+  computed: {
+    videoID: function () {
+      return getVimeoID(this.src)
+    },
+    processedThumbnail () {
+      return  this.customThumbnail ? this.customThumbnail : (this.videoInfo !== null) ? this.videoInfo['thumbnail_url'] : ''
     }
   },
-  components: {
-    VideoWrapper,
-    Preview
-  },
+
   mounted() {
-    this.$nextTick(function () {
-      this.fetchingOembed('vimeo')
-    })
+    this.fetchingOembed()
+  },
+  methods: {
+    handleClick() {
+      this.clicked = true
+      if (this.fetchingInfo === false && !this.onceLoaded && this.isVideoFound) {
+        this.initiateIframe(false, 'vimeo')
+      }
+    },
+    pauseVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl !== null) {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*')
+      }
+    },
+    playVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl === null) {
+        this.initiateIframe(this.autoplay, 'vimeo')
+      } else {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*')
+      }
+    },
+
+    stopVideo() {
+      if (!isPostMessageSupported) {
+        return
+      }
+
+      if (this.iframeEl !== null) {
+        this.iframeEl.contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*')
+      }
+    },
+
+    fetchingOembed() {
+      if (this.oembedFetch) {
+        // Fetch Oembed
+        fetchingOembed(this.src, 'vimeo')
+            .then(function (response) {
+              return response.json()
+            }).then(response => {
+          this.videoInfo = response
+          this.isVideoFound = true
+        })
+            .catch(() => {
+              // handle error
+              this.videoInfo = null
+              this.isVideoFound = false
+            })
+            .finally(() => {
+              // always executed
+              this.fetchingInfo = false
+
+              if (this.autoplay) {
+                this.playVideo()
+              }
+            })
+      } else {
+        this.isVideoFound = true
+        this.fetchingInfo = false
+      }
+    },
+
+    resetState() {
+      this.resetView()
+      this.clicked = false
+      this.onceLoaded = false
+      this.iframeEl = null
+      this.videoInfo = null
+      this.fetchingInfo = true
+      this.isVideoFound = false
+    },
 
   },
-  computed: {
-    aspectRatioValue: function () {
-      return this.calcAspect(this.aspectRatio)
-    },
-    getTitle:function () {
-      return this.videoInfo !== null && this.videoInfo.title ? this.videoInfo.title : ''
-    },
-    isCustomTitleExist () {
-      return this.customTitle.trim().length > 0
-    },
-    isCustomThumbnailExist () {
-      return this.customThumbnail.trim().length > 0
-    }
-  },
+
   watch: {
     'src': function (val, oldVal) {
-      if(val !== oldVal) {
+      if (val !== oldVal) {
         this.resetState();
-        this.fetchingOembed('vimeo')
+        this.fetchingOembed()
       }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

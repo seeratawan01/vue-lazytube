@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 /** Helper method to fetch oembed data  */
 const fetchingOembed = async (src, type = 'youtube') => {
     let url = type === 'youtube' ? `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${getYouTubeID(src)}&format=json` : `https://vimeo.com/api/oembed.json?url=${src}`

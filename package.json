@@ -34,9 +34,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
     "core-js": "^3.10.0",
-    "vue-styled-components": "^1.6.0",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
