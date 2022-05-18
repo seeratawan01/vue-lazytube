@@ -1,6 +1,6 @@
 {
   "name": "vue-lazytube",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": false,
   "keywords": [
     "youtube",
@@ -30,7 +30,10 @@
   "scripts": {
     "serve": "webpack serve --config config/webpack.dev.js --progress",
     "build": "webpack --config config/webpack.prod.js",
-    "pack": "npm pack"
+    "pack": "npm pack",
+    "buildmajor": "npm version major && yarn build",
+    "buildminor": "npm version minor && yarn build",
+    "buildpatch": "npm version patch && yarn build"
   },
   "license": "MIT",
   "dependencies": {
