@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const webpack = require("webpack");
+const version = require('../package.json').version
 
 module.exports = merge({}, {
     mode: 'production',
@@ -55,7 +57,8 @@ module.exports = merge({}, {
         new MiniCssExtractPlugin(),
         new CompressionWebpackPlugin({
             test: /\.js(\?.*)?$/i,
-        })
+        }),
+        new webpack.BannerPlugin(`Vue Lazytube version ${version} under MIT License copyright ${new Date().getFullYear()} seeratawan01`)
     ],
 
     optimization: {
